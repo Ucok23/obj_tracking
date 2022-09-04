@@ -38,7 +38,7 @@ python detection_demo.py
 ```
 
 <p align="center">
-    <img width="100%" src="IMAGES/city_pred.jpg" style="max-width:100%;"></a>
+    <img width="100%" src="IMAGES/city_pred.jpg" style="max-width:100%;">
 </p>
 
 ## Quick training for custom mnist dataset
@@ -55,7 +55,7 @@ tensorboard --logdir=log
 ```
 Track training progress in Tensorboard and go to http://localhost:6006/:
 <p align="center">
-    <img width="100%" src="IMAGES/tensorboard.png" style="max-width:100%;"></a>
+    <img width="100%" src="IMAGES/tensorboard.png" style="max-width:100%;">
 </p>
 
 Test detection with `detect_mnist.py` script:
@@ -64,7 +64,7 @@ python detect_mnist.py
 ```
 Results:
 <p align="center">
-    <img width="40%" src="IMAGES/mnist_test.jpg" style="max-width:40%;"></a>
+    <img width="40%" src="IMAGES/mnist_test.jpg" style="max-width:40%;">
 </p>
 
 ## Custom YOLOv3 & YOLOv4 object detection training
@@ -88,7 +88,7 @@ Quick test:
 - Make sure object detection works for you;
 - Run object_tracking.py script
 <p align="center">
-    <img src="IMAGES/tracking_results.gif"></a>
+    <img src="IMAGES/tracking_results.gif">
 </p>
 
 ## YOLOv3 vs YOLOv4 comparison on 1080TI:
