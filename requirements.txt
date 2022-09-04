@@ -1,0 +1,5 @@
+tensorflow~=2.9.2
+numpy~=1.23.2
+opencv-python~=4.6.0.66
+scipy=1.9.1
+mysql-connector-python=8.0.30
