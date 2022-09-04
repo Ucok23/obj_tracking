@@ -44,7 +44,7 @@ def extract_image_patch(image, bbox, patch_shape):
     ndarray | NoneType
         An image patch showing the :arg:`bbox`, optionally reshaped to
         :arg:`patch_shape`.
-        Returns None if the bounding box is empty or fully outside of the image
+        Returns None if the bounding box is empty or fully outside the image
         boundaries.
 
     """
