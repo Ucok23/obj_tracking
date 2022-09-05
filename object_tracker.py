@@ -142,4 +142,4 @@ def object_tracking(yolo_model, video_path, output_path, input_size=416, show=Fa
 
 yolo = Load_Yolo_model()
 object_tracking(yolo, video_path1, "detection.mp4", input_size=YOLO_INPUT_SIZE, show=True, iou_threshold=0.1,
-                rectangle_colors=(255, 0, 0), track_only=["person", "bicycle"])
+                rectangle_colors=(255, 0, 0), track_only=CLASSES_TO_DETECT)
