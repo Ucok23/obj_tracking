@@ -183,7 +183,7 @@ def Create_Yolov3(input_size=416, channels=3, training=False, CLASSES=YOLO_COCO_
     NUM_CLASS = len(read_class_names(CLASSES))
     input_layer  = Input([input_size, input_size, channels])
 
-    if TRAIN_YOLO_TINY:
+    if USE_YOLO_TINY:
         conv_tensors = YOLOv3_tiny(input_layer, NUM_CLASS)
     else:
         conv_tensors = YOLOv3(input_layer, NUM_CLASS)

@@ -15,12 +15,12 @@ from deep_sort.detection import Detection
 from deep_sort.tracker import Tracker
 from deep_sort import generate_detections as gdet
 
-video_path = "pedestrians.mp4"
+video_path1 = "pedestrians.mp4"
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
-def Object_tracking(Yolo, video_path, output_path, input_size=416, show=False, CLASSES=YOLO_COCO_CLASSES,
-                    score_threshold=0.3, iou_threshold=0.45, rectangle_colors='', track_only=[]):
+def object_tracking(yolo_model, video_path, output_path, input_size=416, show=False, classes=YOLO_COCO_CLASSES,
+                    score_threshold=0.3, iou_threshold=0.45, track_only=[]):
     # Definition of the parameters
     max_cosine_distance = 0.7
     nn_budget = None
@@ -45,9 +45,9 @@ def Object_tracking(Yolo, video_path, output_path, input_size=416, show=False, C
     codec = cv2.VideoWriter_fourcc(*'XVID')
     out = cv2.VideoWriter(output_path, codec, fps, (width, height))  # output_path must be .mp4
 
-    NUM_CLASS = read_class_names(CLASSES)
-    key_list = list(NUM_CLASS.keys())
-    val_list = list(NUM_CLASS.values())
+    num_class = read_class_names(classes)
+    key_list = list(num_class.keys())
+    val_list = list(num_class.values())
     while True:
         _, frame = vid.read()
 
@@ -64,7 +64,7 @@ def Object_tracking(Yolo, video_path, output_path, input_size=416, show=False, C
         t1 = time.time()
 
         # predict
-        pred_bbox = Yolo.predict(image_data)
+        pred_bbox = yolo_model.predict(image_data)
         # t1 = time.time()
         # pred_bbox = Yolo.predict(image_data)
         t2 = time.time()
@@ -78,11 +78,11 @@ def Object_tracking(Yolo, video_path, output_path, input_size=416, show=False, C
         # extract bboxes to boxes (x, y, width, height), scores and names
         boxes, scores, names = [], [], []
         for bbox in bboxes:
-            if len(track_only) != 0 and NUM_CLASS[int(bbox[5])] in track_only or len(track_only) == 0:
+            if len(track_only) != 0 and num_class[int(bbox[5])] in track_only or len(track_only) == 0:
                 boxes.append([bbox[0].astype(int), bbox[1].astype(int), bbox[2].astype(int) - bbox[0].astype(int),
                               bbox[3].astype(int) - bbox[1].astype(int)])
                 scores.append(bbox[4])
-                names.append(NUM_CLASS[int(bbox[5])])
+                names.append(num_class[int(bbox[5])])
 
         # Obtain all the detections for the given frame.
         boxes = np.array(boxes)
@@ -107,7 +107,7 @@ def Object_tracking(Yolo, video_path, output_path, input_size=416, show=False, C
             index = key_list[val_list.index(class_name)]  # Get predicted object index by object name
             tracked_bboxes.append(bbox.tolist() + [tracking_id, index])
         # draw detection on frame
-        image = draw_bbox(original_frame, tracked_bboxes, CLASSES=CLASSES, tracking=True)
+        image = draw_bbox(original_frame, tracked_bboxes, CLASSES=classes, tracking=True)
 
         print(tracked_bboxes)
 
@@ -141,5 +141,5 @@ def Object_tracking(Yolo, video_path, output_path, input_size=416, show=False, C
 
 
 yolo = Load_Yolo_model()
-Object_tracking(yolo, video_path, "detection.mp4", input_size=YOLO_INPUT_SIZE, show=True, iou_threshold=0.1,
+object_tracking(yolo, video_path1, "detection.mp4", input_size=YOLO_INPUT_SIZE, show=True, iou_threshold=0.1,
                 rectangle_colors=(255, 0, 0), track_only=["person", "bicycle"])

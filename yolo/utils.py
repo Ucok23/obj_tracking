@@ -6,7 +6,7 @@ import colorsys
 import tensorflow as tf
 import numpy as np
 
-from .configs import TRAIN_YOLO_TINY, YOLO_TYPE, YOLO_FRAMEWORK, YOLO_V4_TINY_WEIGHTS, YOLO_V4_WEIGHTS, \
+from .configs import USE_YOLO_TINY, YOLO_TYPE, YOLO_FRAMEWORK, YOLO_V4_TINY_WEIGHTS, YOLO_V4_WEIGHTS, \
     YOLO_V3_TINY_WEIGHTS, YOLO_V3_WEIGHTS, YOLO_INPUT_SIZE, YOLO_COCO_CLASSES
 from .v4 import Create_Yolo
 from .helper import read_class_names
@@ -15,11 +15,11 @@ def load_yolo_weights(model, weights_file):
     tf.keras.backend.clear_session()  # used to reset layer names
     # load Darknet original weights to TensorFlow model
     if YOLO_TYPE == "yolo":
-        range1 = 75 if not TRAIN_YOLO_TINY else 13
-        range2 = [58, 66, 74] if not TRAIN_YOLO_TINY else [9, 12]
+        range1 = 75 if not USE_YOLO_TINY else 13
+        range2 = [58, 66, 74] if not USE_YOLO_TINY else [9, 12]
     if YOLO_TYPE == "yolov4":
-        range1 = 110 if not TRAIN_YOLO_TINY else 21
-        range2 = [93, 101, 109] if not TRAIN_YOLO_TINY else [17, 20]
+        range1 = 110 if not USE_YOLO_TINY else 21
+        range2 = [93, 101, 109] if not USE_YOLO_TINY else [17, 20]
 
     with open(weights_file, 'rb') as wf:
         major, minor, revision, seen, _ = np.fromfile(wf, dtype=np.int32, count=5)
@@ -76,9 +76,9 @@ def Load_Yolo_model():
             pass
 
     if YOLO_TYPE == "yolov4":
-        Darknet_weights = YOLO_V4_TINY_WEIGHTS if TRAIN_YOLO_TINY else YOLO_V4_WEIGHTS
+        Darknet_weights = YOLO_V4_TINY_WEIGHTS if USE_YOLO_TINY else YOLO_V4_WEIGHTS
     if YOLO_TYPE == "yolo":
-        Darknet_weights = YOLO_V3_TINY_WEIGHTS if TRAIN_YOLO_TINY else YOLO_V3_WEIGHTS
+        Darknet_weights = YOLO_V3_TINY_WEIGHTS if USE_YOLO_TINY else YOLO_V3_WEIGHTS
 
     print("Loading Darknet_weights from:", Darknet_weights)
     yolo = Create_Yolo(input_size=YOLO_INPUT_SIZE, CLASSES=YOLO_COCO_CLASSES)

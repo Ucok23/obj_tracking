@@ -22,11 +22,13 @@ if YOLO_TYPE                == "yolo":
     YOLO_ANCHORS            = [[[10,  13], [16,   30], [33,   23]],
                                [[30,  61], [62,   45], [59,  119]],
                                [[116, 90], [156, 198], [373, 326]]]
-# Train options
-TRAIN_YOLO_TINY             = False
+USE_YOLO_TINY               = False
 
-if TRAIN_YOLO_TINY:
+if USE_YOLO_TINY:
     YOLO_STRIDES            = [16, 32]    
     # YOLO_ANCHORS            = [[[23, 27],  [37, 58],   [81,  82]], # this line can be uncommented for default coco weights
     YOLO_ANCHORS            = [[[10, 14],  [23, 27],   [37, 58]],
                                [[81,  82], [135, 169], [344, 319]]]
+
+
+CLASS_TO_DETECT = ['person', 'bicycle', 'car', 'motorbike']

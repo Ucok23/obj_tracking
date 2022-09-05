@@ -384,7 +384,7 @@ def Create_Yolo(input_size=416, channels=3, training=False, CLASSES=YOLO_COCO_CL
     NUM_CLASS = len(read_class_names(CLASSES))
     input_layer = Input([input_size, input_size, channels])
 
-    if TRAIN_YOLO_TINY:
+    if USE_YOLO_TINY:
         if YOLO_TYPE == "yolov4":
             conv_tensors = YOLOv4_tiny(input_layer, NUM_CLASS)
         if YOLO_TYPE == "yolo":
