@@ -1,5 +1,4 @@
-import os
-import time
+import os, time, logging
 
 import cv2
 import numpy as np
@@ -15,6 +14,11 @@ from deep_sort.detection import Detection
 from deep_sort.tracker import Tracker
 from deep_sort import generate_detections as gdet
 
+logging.basicConfig(filename='tracking.log',
+                    filemode='a',
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    datefmt='%d %b %Y %H:%M:%S',
+                    level=logging.INFO)
 video_path1 = "pedestrians.mp4"
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
@@ -106,6 +110,7 @@ def object_tracking(yolo_model, video_path, output_path, input_size=416, show=Fa
             tracking_id = track.track_id  # Get the ID for the particular track
             index = key_list[val_list.index(class_name)]  # Get predicted object index by object name
             tracked_bboxes.append(bbox.tolist() + [tracking_id, index])
+
         # draw detection on frame
         image = draw_bbox(original_frame, tracked_bboxes, CLASSES=classes, tracking=True)
 
