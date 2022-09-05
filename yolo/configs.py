@@ -31,4 +31,4 @@ if USE_YOLO_TINY:
                                [[81,  82], [135, 169], [344, 319]]]
 
 
-CLASS_TO_DETECT = ['person', 'bicycle', 'car', 'motorbike']
+CLASSES_TO_DETECT = ['person', 'bicycle', 'car', 'motorbike']
