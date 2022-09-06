@@ -6,6 +6,7 @@ import numpy as np
 import tensorflow as tf
 from mysql.connector import connect
 
+from cli import get_cli_input
 from db import DB_USER, DB_PASSWORD, setup_table, insert_result
 from deep_sort import generate_detections as gdet
 from deep_sort import nn_matching
@@ -80,8 +81,15 @@ def extract_bboxes(bboxes, num_class, track_only):
     return boxes, names, scores
 
 
-def object_tracking(yolo_model, video_path, output_path, input_size=416, show=False, classes=YOLO_COCO_CLASSES,
-                    score_threshold=0.3, iou_threshold=0.45, track_only=[]):
+def object_tracking(yolo_model,
+                    video_path,
+                    output_path,
+                    input_size=416,
+                    show=False,
+                    classes=YOLO_COCO_CLASSES,
+                    score_threshold=0.3,
+                    iou_threshold=0.45,
+                    track_only=[]):
 
     encoder, tracker = create_deep_sort()
 
@@ -162,6 +170,17 @@ def object_tracking(yolo_model, video_path, output_path, input_size=416, show=Fa
 
 
 if __name__ == "__main__":
+    args = get_cli_input()
+
+    show = True
+    if args['display'] > 0:
+        show = False
+
     yolo = Load_Yolo_model()
-    object_tracking(yolo, video_path1, "detection.mp4", input_size=YOLO_INPUT_SIZE, show=True, iou_threshold=0.1,
+    object_tracking(yolo,
+                    args['input'],
+                    args['output'],
+                    input_size=YOLO_INPUT_SIZE,
+                    show=show,
+                    iou_threshold=0.1,
                     track_only=CLASSES_TO_DETECT)
