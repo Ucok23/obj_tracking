@@ -148,8 +148,11 @@ def object_tracking(yolo_model,
             if tracking_id not in inserted_id:
                 logging.info(f'class: {class_name}, id: {tracking_id}')
 
+                # comment dua baris di bawah ini untuk
+                # tidak insert data ke database
                 data = {'id': tracking_id}
                 insert_result(cursor, cx, class_name, data)
+
             inserted_id.append(tracking_id)
 
             index = key_list[val_list.index(class_name)]  # Get predicted object index by object name
