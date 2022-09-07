@@ -175,9 +175,9 @@ def object_tracking(yolo_model,
 if __name__ == "__main__":
     args = get_cli_input()
 
-    show = True
+    show = False
     if args['display'] > 0:
-        show = False
+        show = True
 
     yolo = Load_Yolo_model()
     object_tracking(yolo,
